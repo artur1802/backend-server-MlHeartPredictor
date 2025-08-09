@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -8,14 +9,18 @@ from typing import Optional
 
 app = FastAPI(title="Heart Disease Prediction API")
 
-# --- CORS Configuration ---
-# This allows the frontend (running on localhost:3000) to communicate with this API
+# Get allowed origins from environment variable or use defaults
+allowed_origins = os.getenv(
+    "ALLOWED_ORIGINS", 
+    "http://localhost:3000,https://frontend-heart-predictor-5hq7-33x3ouowt.vercel.app"
+).split(",")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # Frontend origin
-    allow_credentials=True,  # Allow cookies
-    allow_methods=["*"],  # Allow all HTTP methods
-    allow_headers=["*"],  # Allow all headers
+    allow_origins=allowed_origins,
+    allow_credentials=True,
+    allow_methods=["POST", "GET"],  # Only allow needed methods
+    allow_headers=["Content-Type", "Authorization"],  # Only needed headers
 )
 
 
