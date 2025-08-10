@@ -12,7 +12,7 @@ app = FastAPI(title="Heart Disease Prediction API")
 # Get allowed origins from environment variable or use defaults
 allowed_origins = os.getenv(
     "ALLOWED_ORIGINS", 
-    "http://localhost:3000,https://frontend-heart-predictor-5hq7-et8xtv65o.vercel.app"
+    "http://localhost:3000,https://frontend-heart-predictor-5-git-530957-arturos-projects-65f856a2.vercel.app"
 ).split(",")
 
 app.add_middleware(
